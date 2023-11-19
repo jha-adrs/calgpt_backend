@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const { logger } = require('./utils/logger');
 require('dotenv').config();
-
+const {pool, instantiatePool, query} = require('./utils/mysql')
 const app = express();
 
 // Middleware
@@ -27,12 +27,25 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+app.get('/', (req, res) => {
+    res.send('Hello World!').status(200);
+});
+
 app.get('/ping', (req, res) => {
     res.send('pong').status(200);
 });
 
+app.get('/mysql', async(req, res) => {
+    const response = await query('select * from try');
+    logger.info('Response from mysql', response);
+    return res.send(response).status(200);
+})
+
 
 app.listen(
     process.env.PORT || 5000,
-    () => console.log(`Listening on port ${process.env.PORT}!`)
+    async() => {
+        logger.info(`Server is running on port: ${process.env.PORT || 5000}`)
+        await instantiatePool();
+    }
 )
