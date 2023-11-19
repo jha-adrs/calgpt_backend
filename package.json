@@ -1,0 +1,30 @@
+{
+  "name": "calgpt_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "calgpt_backend"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.4",
+    "helmet": "^7.1.0",
+    "is-empty": "^1.2.0",
+    "is-plain-object": "^5.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.3",
+    "nodemon": "^3.0.1",
+    "passport-google-oauth20": "^2.0.0",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  }
+}
