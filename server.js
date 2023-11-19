@@ -6,10 +6,15 @@ const rateLimit = require('express-rate-limit');
 const { logger } = require('./utils/logger');
 require('dotenv').config();
 const {pool, instantiatePool, query} = require('./utils/mysql')
+const passport = require('passport');
+require('./utils/passportConfig')(passport);
+const jwt = require('jsonwebtoken');
+
+
 const app = express();
 
 // Middleware
-app.use(helmet()); // helps secure Express apps by setting various HTTP headers
+app.use(helmet());
 app.use(bodyParser.json()); // parse json request body
 app.use(bodyParser.urlencoded({ extended: true })); // parse urlencoded request body
 app.use(morgan('combined', {stream: logger.stream})); // HTTP request logger
@@ -40,6 +45,10 @@ app.get('/mysql', async(req, res) => {
     logger.info('Response from mysql', response);
     return res.send(response).status(200);
 })
+
+app.use('/auth', require('./routes/auth'))
+
+
 
 
 app.listen(
